@@ -25,7 +25,7 @@ A full-stack web application to predict student academic risk using a Logistic R
    docker-compose up --build
    ```
 3. **Access the Application**
-   - Frontend: [http://localhost:3000](http://localhost:3000)
+   - Frontend: [http://localhost:3000](http://localhost:5173/)
    - Backend Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ## Local Development Setup
