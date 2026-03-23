@@ -13,7 +13,7 @@ const StudentResources = () => {
     const fetchProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:8000/students/me', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/students/me`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setProfile(response.data);

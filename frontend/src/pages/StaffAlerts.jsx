@@ -21,7 +21,7 @@ const StaffAlerts = () => {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:8000/actions/all-notifications', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/actions/all-notifications`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setNotifications(response.data);
@@ -40,7 +40,7 @@ const StaffAlerts = () => {
             setIsSending(true);
             setSendSuccess('');
             const token = localStorage.getItem('token');
-            await axios.post('http://localhost:8000/actions/email', emailForm, {
+            await axios.post(`${import.meta.env.VITE_API_URL}/actions/email`, emailForm, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setSendSuccess('Email sent and notification logged successfully!');

@@ -76,7 +76,7 @@ const BatchUpload = () => {
             setUploading(true);
             setStatus({ type: '', message: '' });
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://localhost:8000/students/batch', parsedData, {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/students/batch`, parsedData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 

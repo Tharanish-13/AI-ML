@@ -20,7 +20,7 @@ const AdminUsers = () => {
         try {
             setLoading(true);
             const token = localStorage.getItem('token');
-            const response = await axios.get('http://localhost:8000/admin/users/', {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/admin/users/`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUsers(response.data);
@@ -45,7 +45,7 @@ const AdminUsers = () => {
 
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:8000/admin/users/${userId}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/admin/users/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUsers(users.filter(u => u.id !== userId));
@@ -65,7 +65,7 @@ const AdminUsers = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.put(`http://localhost:8000/admin/users/${userToToggle.id}`, {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/admin/users/${userToToggle.id}`, {
                 banned: !userToToggle.banned
             }, {
                 headers: { Authorization: `Bearer ${token}` }
@@ -97,7 +97,7 @@ const AdminUsers = () => {
             if (!dataToUpdate.department) dataToUpdate.department = null;
             if (!dataToUpdate.year) dataToUpdate.year = null;
 
-            const response = await axios.put(`http://localhost:8000/admin/users/${userId}`, dataToUpdate, {
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/admin/users/${userId}`, dataToUpdate, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
