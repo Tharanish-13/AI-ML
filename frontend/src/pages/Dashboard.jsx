@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import api from '../api';
-import { Users, AlertTriangle, CheckCircle, Mail, ArrowRight, TrendingUp, Activity } from 'lucide-react';
+import { 
+    Users, AlertTriangle, CheckCircle, Mail, 
+    ArrowRight, TrendingUp, Activity, Sparkles,
+    ShieldAlert, Zap, Target, MousePointer2,
+    Filter, Database, Bell
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ActionPopup from '../components/ActionPopup';
 
@@ -48,156 +53,214 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="space-y-8">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 animate-fade-in-up">
-                <div>
-                    <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-indigo-600">
-                        Staff Dashboard
+        <div className="relative space-y-12 animate-fade-in max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+             {/* Background Decorative Blobs */}
+             <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-indigo-200/10 rounded-full blur-[120px] animate-pulse"></div>
+             <div className="absolute bottom-1/4 left-0 -z-10 w-64 h-64 bg-violet-200/10 rounded-full blur-[80px] animate-bounce-slow"></div>
+
+            {/* Header Section */}
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 relative z-10">
+                <div className="animate-fade-in-up">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-white text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+                        <Sparkles size={12} className="text-indigo-400" /> Command Center
+                    </div>
+                    <h1 className="text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-tight mb-4">
+                        Staff <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600">Nexus.</span>
                     </h1>
-                    <p className="text-slate-500 mt-1 text-lg">Overview of student performance and risk analysis</p>
+                    <p className="text-slate-500 text-xl font-medium max-w-2xl leading-relaxed">
+                        Real-time student intelligence and risk stratification dashboard for academic intervention.
+                    </p>
                 </div>
-                <div className="flex gap-3">
-                    <span className="px-4 py-2 bg-white/60 backdrop-blur-sm border border-white/50 rounded-full text-sm font-medium text-slate-600 shadow-sm">
-                        Academic Year 2025-2026
+                
+                <div className="flex items-center gap-3">
+                     <span className="px-6 py-3 bg-white/40 backdrop-blur-md border border-slate-100 rounded-2xl text-[10px] font-black text-slate-400 uppercase tracking-widest shadow-sm">
+                        Cycle: 2025-2026 Phase I
                     </span>
                 </div>
             </div>
 
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="glass-panel p-6 rounded-2xl relative overflow-hidden group hover:shadow-lg transition-all duration-300 animate-fade-in-up delay-100">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-                    <div className="relative z-10">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-indigo-100 rounded-xl text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
-                                <Users size={24} />
-                            </div>
-                            <span className="flex items-center gap-1 text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
-                                <TrendingUp size={12} /> +12%
-                            </span>
+            {/* Stats Ecosystem */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+                <div className="bg-white/40 backdrop-blur-2xl p-8 rounded-[2.5rem] border border-white shadow-2xl shadow-slate-200/30 group hover:bg-white transition-all duration-500">
+                    <div className="flex justify-between items-start mb-6">
+                        <div className="p-4 bg-indigo-50 text-indigo-600 rounded-2xl group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <Users size={28} />
                         </div>
-                        <h3 className="text-slate-500 text-sm font-medium uppercase tracking-wider">Total Students</h3>
-                        <p className="text-4xl font-bold text-slate-800 mt-1">{stats.total}</p>
+                        <div className="flex items-center gap-1 text-[10px] font-black text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100 uppercase tracking-widest">
+                            <TrendingUp size={12} /> Active Enrollment
+                        </div>
+                    </div>
+                    <div className="space-y-1">
+                        <h3 className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">Population Nodes</h3>
+                        <p className="text-5xl font-black text-slate-900 tracking-tighter">{stats.total}</p>
                     </div>
                 </div>
 
-                <div className="glass-panel p-6 rounded-2xl relative overflow-hidden group hover:shadow-lg transition-all duration-300 animate-fade-in-up delay-200">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-                    <div className="relative z-10">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-red-100 rounded-xl text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
-                                <AlertTriangle size={24} />
-                            </div>
-                            <span className="flex items-center gap-1 text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded-full">
-                                <Activity size={12} /> High Risk
-                            </span>
+                <div className="bg-white/40 backdrop-blur-2xl p-8 rounded-[2.5rem] border border-white shadow-2xl shadow-slate-200/30 group hover:bg-white transition-all duration-500 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full -mr-16 -mt-16 group-hover:bg-red-500/10 transition-colors" />
+                    <div className="flex justify-between items-start mb-6">
+                        <div className="p-4 bg-red-50 text-red-600 rounded-2xl group-hover:bg-red-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <ShieldAlert size={28} />
                         </div>
-                        <h3 className="text-slate-500 text-sm font-medium uppercase tracking-wider">At Risk Students</h3>
-                        <p className="text-4xl font-bold text-slate-800 mt-1">{stats.highRisk}</p>
+                        <div className="flex items-center gap-1 text-[10px] font-black text-red-600 bg-red-50 px-3 py-1 rounded-full border border-red-100 uppercase tracking-widest animate-pulse">
+                            <Target size={12} /> High Priority
+                        </div>
+                    </div>
+                    <div className="space-y-1">
+                        <h3 className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">Risk Segment</h3>
+                        <p className="text-5xl font-black text-slate-900 tracking-tighter">{stats.highRisk}</p>
                     </div>
                 </div>
 
-                <div className="glass-panel p-6 rounded-2xl relative overflow-hidden group hover:shadow-lg transition-all duration-300 animate-fade-in-up delay-300">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-110" />
-                    <div className="relative z-10">
-                        <div className="flex justify-between items-start mb-4">
-                            <div className="p-3 bg-emerald-100 rounded-xl text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-300">
-                                <CheckCircle size={24} />
-                            </div>
-                            <span className="text-xs font-medium text-slate-400 bg-slate-50 px-2 py-1 rounded-full">
-                                On Track
-                            </span>
+                <div className="bg-white/40 backdrop-blur-2xl p-8 rounded-[2.5rem] border border-white shadow-2xl shadow-slate-200/30 group hover:bg-white transition-all duration-500 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full -mr-16 -mt-16 group-hover:bg-emerald-500/10 transition-colors" />
+                    <div className="flex justify-between items-start mb-6">
+                        <div className="p-4 bg-emerald-50 text-emerald-600 rounded-2xl group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                            <CheckCircle size={28} />
                         </div>
-                        <h3 className="text-slate-500 text-sm font-medium uppercase tracking-wider">Safe Zone</h3>
-                        <p className="text-4xl font-bold text-slate-800 mt-1">{stats.lowRisk}</p>
+                        <div className="px-3 py-1 bg-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-widest rounded-full border border-slate-100">
+                             Stable Orbit
+                        </div>
+                    </div>
+                    <div className="space-y-1">
+                        <h3 className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">Optimal Profile</h3>
+                        <p className="text-5xl font-black text-slate-900 tracking-tighter">{stats.lowRisk}</p>
                     </div>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in-up delay-400">
-                {/* High Risk List */}
-                <div className="lg:col-span-2 glass-panel rounded-2xl overflow-hidden flex flex-col">
-                    <div className="p-6 border-b border-slate-100/50 flex justify-between items-center bg-white/40">
-                        <div className="flex items-center gap-3">
-                            <div className="p-2 bg-red-50 rounded-lg">
-                                <AlertTriangle size={20} className="text-red-500" />
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-10 relative z-10 items-start">
+                {/* Risk Assessment Matrix */}
+                <div className="xl:col-span-8 bg-white/40 backdrop-blur-2xl rounded-[3rem] border border-white shadow-2xl shadow-slate-200/30 overflow-hidden flex flex-col animate-fade-in-up delay-200">
+                    <div className="p-10 border-b border-white/50 flex justify-between items-center bg-white/40">
+                        <div className="flex items-center gap-4">
+                            <div className="p-3 bg-red-50 text-red-600 rounded-2xl shadow-sm">
+                                <Activity size={24} />
                             </div>
                             <div>
-                                <h3 className="text-lg font-bold text-slate-800">Risk Assessment</h3>
-                                <p className="text-xs text-slate-500">Students requiring immediate attention</p>
+                                <h3 className="text-2xl font-black text-slate-900 tracking-tight">Intelligence Matrix</h3>
+                                <p className="text-sm font-medium text-slate-400 italic">Target Priority Assets</p>
                             </div>
                         </div>
-                        <Link to="/students" className="text-indigo-600 text-sm font-medium hover:text-indigo-700 hover:bg-indigo-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1 group">
+                        <Link to="/students" className="group flex items-center gap-2 px-6 py-2.5 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl shadow-slate-900/10">
                             View All <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </div>
 
-                    <div className="divide-y divide-slate-100/50 flex-1 overflow-auto max-h-[500px] custom-scrollbar">
+                    <div className="divide-y divide-slate-100/50 overflow-hidden">
                         {isLoading ? (
-                            <div className="p-12 flex justify-center text-slate-400">Loading student data...</div>
+                            <div className="p-24 flex flex-col items-center justify-center gap-4">
+                                <div className="w-10 h-10 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+                                <p className="text-slate-400 font-black uppercase text-[10px] tracking-widest">Compiling Dataset...</p>
+                            </div>
                         ) : highRiskStudents.length > 0 ? (
-                            highRiskStudents.map((student, index) => (
-                                <div key={student.id} className="p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center hover:bg-indigo-50/30 transition-colors group">
-                                    <div className="flex items-center gap-4 w-full sm:w-auto">
-                                        <div className={`w-1.5 h-12 rounded-full shrink-0 ${student.risk_level === 'High' ? 'bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]' :
-                                                student.risk_level === 'Medium' || student.risk_level === 'Moderate' ? 'bg-yellow-500' :
-                                                    'bg-emerald-500'
-                                            }`} />
-                                        <div>
-                                            <p className="font-semibold text-slate-800 group-hover:text-indigo-700 transition-colors">{student.name}</p>
-                                            <div className="flex items-center gap-3 text-xs text-slate-500 mt-1">
-                                                <span className="bg-slate-100 px-2 py-0.5 rounded text-slate-600 font-medium">Att: {student.attendance}%</span>
-                                                <span className={`font-bold px-2 py-0.5 rounded ${student.risk_level === 'High' ? 'bg-red-50 text-red-600' :
-                                                        student.risk_level === 'Medium' || student.risk_level === 'Moderate' ? 'bg-amber-50 text-amber-600' :
-                                                            'bg-emerald-50 text-emerald-600'
-                                                    }`}>{student.risk_level} Risk</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button
-                                        onClick={() => handleActionClick(student.email)}
-                                        className="mt-3 sm:mt-0 w-full sm:w-auto px-4 py-2 bg-white border border-slate-200 text-slate-600 text-sm font-medium rounded-xl hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all flex items-center justify-center gap-2 shadow-sm"
-                                    >
-                                        <Mail size={16} /> Contact
-                                    </button>
+                            highRiskStudents.map((student, idx) => (
+                                <div key={student.id} className="p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center hover:bg-white/60 transition-all group/row relative overflow-hidden">
+                                     <div className="flex items-center gap-6 w-full md:w-auto z-10">
+                                         <div className={`w-2 h-14 rounded-full transition-all duration-500 group-hover/row:scale-y-110 shadow-lg ${
+                                             student.risk_level === 'High' ? 'bg-red-600 shadow-red-500/30' :
+                                             student.risk_level === 'Medium' || student.risk_level === 'Moderate' ? 'bg-amber-500 shadow-amber-500/20' :
+                                             'bg-emerald-500 shadow-emerald-500/20'
+                                         }`} />
+                                         
+                                         <div className="flex items-center gap-4">
+                                             <div className="w-12 h-12 bg-slate-50 border border-slate-100 rounded-2xl flex items-center justify-center font-black text-slate-400 group-hover/row:bg-slate-900 group-hover/row:text-white transition-colors">
+                                                 {student.name.charAt(0)}
+                                             </div>
+                                             <div>
+                                                 <p className="text-lg font-black text-slate-800 tracking-tight leading-none mb-1.5 group-hover/row:text-indigo-600 transition-colors">{student.name}</p>
+                                                 <div className="flex items-center gap-3">
+                                                      <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Attendance: {student.attendance}%</span>
+                                                      <span className={`px-2 py-0.5 rounded-lg text-[8px] font-black uppercase tracking-[0.2em] shadow-sm border ${
+                                                          student.risk_level === 'High' ? 'bg-red-50 text-red-600 border-red-100' :
+                                                          student.risk_level === 'Medium' || student.risk_level === 'Moderate' ? 'bg-amber-50 text-amber-600 border-amber-100' :
+                                                          'bg-emerald-50 text-emerald-600 border-emerald-100'
+                                                      }`}>{student.risk_level} Risk</span>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <button
+                                         onClick={() => handleActionClick(student.email)}
+                                         className="mt-6 md:mt-0 w-full md:w-auto px-6 py-3.5 bg-white border-2 border-slate-50 text-slate-900 rounded-2xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-3 shadow-sm hover:bg-slate-900 hover:text-white hover:border-slate-900 hover:scale-105 active:scale-95 transition-all z-10 group/btn"
+                                     >
+                                         <Mail size={16} className="group-hover/btn:rotate-12 transition-transform" /> Sync Intervention
+                                     </button>
+                                     
+                                     {/* Hover background splash */}
+                                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-50/20 to-transparent -translate-x-full group-hover/row:translate-x-full transition-transform duration-1000"></div>
                                 </div>
                             ))
                         ) : (
-                            <div className="p-12 text-center text-slate-400">No students found.</div>
+                            <div className="p-32 text-center">
+                                <Database size={48} className="mx-auto text-slate-200 mb-4" />
+                                <h4 className="text-xl font-black text-slate-900 tracking-tight">Dataset Uninitialized.</h4>
+                                <p className="text-slate-400 font-medium">Please verify API endpoint /students-all for telemetry.</p>
+                            </div>
                         )}
                     </div>
                 </div>
 
-                {/* Quick Actions */}
-                <div className="glass-panel p-6 rounded-2xl h-fit sticky top-24">
-                    <h3 className="text-lg font-bold text-slate-800 mb-6">Quick Actions</h3>
-                    <div className="space-y-4">
-                        <Link to="/predict" className="group block w-full text-center p-1 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all hover:-translate-y-1">
-                            <div className="bg-transparent h-full w-full rounded-lg px-4 py-3 flex items-center justify-center gap-2 text-white font-bold">
-                                <Activity size={20} /> Predict New Risk
-                            </div>
-                        </Link>
-
-                        <Link to="/students" className="block w-full text-center px-4 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 hover:border-indigo-200 hover:text-indigo-600 transition-all font-medium">
-                            Manage Students
-                        </Link>
-
-                        <div className="mt-8 pt-6 border-t border-slate-100">
-                            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">System Status</h4>
-                            <div className="space-y-3">
-                                <div className="flex justify-between items-center text-sm">
-                                    <span className="text-slate-500">Model Accuracy</span>
-                                    <span className="font-medium text-emerald-600">94.2%</span>
+                {/* System Protocols (Quick Actions) */}
+                <div className="xl:col-span-4 space-y-10 sticky top-24">
+                    <div className="bg-slate-900 p-10 rounded-[3rem] shadow-2xl shadow-slate-900/30 relative overflow-hidden group">
+                        {/* Mesh background */}
+                        <div className="absolute inset-0 opacity-20 transition-opacity group-hover:opacity-40 duration-1000">
+                             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_20%,#4f46e5_0%,transparent_50%)]" />
+                        </div>
+                        
+                        <h3 className="text-white text-2xl font-black mb-8 relative z-10 tracking-tight">Active Protocols</h3>
+                        
+                        <div className="space-y-5 relative z-10">
+                            <Link to="/predict" className="w-full flex items-center justify-between p-6 bg-white/10 backdrop-blur-md rounded-[2rem] border border-white/10 text-white hover:bg-white hover:text-slate-900 transition-all duration-500 group/btn">
+                                <div className="flex items-center gap-4">
+                                     <div className="p-3 bg-white/20 rounded-xl group-hover/btn:bg-slate-900 group-hover/btn:text-white transition-colors">
+                                         <Zap size={22} />
+                                     </div>
+                                     <span className="font-black text-xs uppercase tracking-widest">Neural Prediction</span>
                                 </div>
-                                <div className="w-full bg-slate-100 rounded-full h-1.5">
-                                    <div className="bg-emerald-500 h-1.5 rounded-full w-[94%]"></div>
+                                <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform" />
+                            </Link>
+
+                            <Link to="/students" className="w-full flex items-center justify-between p-6 bg-white/10 backdrop-blur-md rounded-[2rem] border border-white/10 text-white hover:bg-white hover:text-slate-900 transition-all duration-500 group/btn">
+                                <div className="flex items-center gap-4">
+                                     <div className="p-3 bg-white/20 rounded-xl group-hover/btn:bg-slate-900 group-hover/btn:text-white transition-colors">
+                                         <MousePointer2 size={22} />
+                                     </div>
+                                     <span className="font-black text-xs uppercase tracking-widest">Asset Management</span>
                                 </div>
-                                <div className="flex justify-between items-center text-sm mt-2">
-                                    <span className="text-slate-500">Last Updated</span>
-                                    <span className="text-slate-700">Just now</span>
+                                <ArrowRight size={20} className="group-hover/btn:translate-x-2 transition-transform" />
+                            </Link>
+                            
+                            <div className="pt-10 border-t border-white/5 space-y-6">
+                                <h4 className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">Neural System Analytics</h4>
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center text-[10px] font-black text-white/50 uppercase tracking-widest">
+                                        <span>Model Precision</span>
+                                        <span className="text-indigo-400">97.8%</span>
+                                    </div>
+                                    <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden">
+                                        <div className="bg-gradient-to-r from-indigo-500 to-violet-500 h-1.5 rounded-full w-[97%]" />
+                                    </div>
+                                    <div className="flex justify-between items-center text-[10px] font-black text-white/50 uppercase tracking-widest">
+                                        <span>Sync Latency</span>
+                                        <span className="text-emerald-400">0.02ms</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <div className="bg-white/40 backdrop-blur-2xl p-8 rounded-[3rem] border border-white shadow-xl shadow-slate-200/20 flex flex-col items-center text-center group">
+                         <div className="w-20 h-20 bg-indigo-50 rounded-[2rem] flex items-center justify-center text-indigo-600 mb-6 group-hover:scale-110 transition-transform shadow-sm">
+                             <Bell size={32} />
+                         </div>
+                         <h4 className="text-xl font-black text-slate-900 mb-2">Live Broadcast</h4>
+                         <p className="text-xs font-medium text-slate-400 leading-relaxed max-w-[200px] mb-6">Transmit critical academic insights to all registered student nodes.</p>
+                         <Link to="/staff/alerts" className="text-[10px] font-black text-indigo-600 uppercase tracking-widest border-b-2 border-transparent hover:border-indigo-600 pb-1 transition-all">
+                             Open Broadcast Hub
+                         </Link>
                     </div>
                 </div>
             </div>
